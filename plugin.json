@@ -1,0 +1,10 @@
+{
+  "name": "camera",
+  "description": "zMod's CAMERA_ON / CAMERA_OFF / CAMERA_RESTART on Kiln's camera service, plus camera hotplug",
+  "version": "1.0.0",
+  "author": "DIEHARDave",
+  "url": "https://github.com/DIEHARDave/KILN_Camera",
+  "requires_os": "1.3",
+  "requires": [],
+  "conflicts": []
+}
