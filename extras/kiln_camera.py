@@ -3,8 +3,9 @@
 # console warning when the hook is missing, outdated or not running.
 #
 # Klipper runs as user klipper: this module only reads files. The
-# cameras are started by Kiln's S64ad5x-camera (root), which sources the
-# hook through /data/ad5x/camera.conf.
+# cameras are started by Kiln's S64ad5x-camera (root) from
+# /data/ad5x/camera.conf; the hook, sourced by S65ad5x-screen through
+# /data/ad5x/screen.conf, writes the settings there.
 #
 # Copyright (C) 2026  DIEHARDave
 #
@@ -14,7 +15,7 @@ import os
 import re
 
 HOOK = "/data/ad5x/camera-hook.sh"
-CONF = "/data/ad5x/camera.conf"
+CONF = "/data/ad5x/screen.conf"
 V4L = "/sys/class/video4linux"
 VERSION_RE = re.compile(r"^CAM_HOOK_VERSION=(\d+)", re.M)
 CHECK_INTERVAL = 30.
@@ -103,7 +104,7 @@ class KilnCamera:
                             " run as root: %s" % (installed, wanted, INSTALL))
         elif not watcher_running(processes()):
             problems.append("camera watcher not running: run as root:"
-                            " /etc/init.d/S64ad5x-camera restart")
+                            " sh " + HOOK)
         self.problems = problems
         return problems
     def _ready(self):
