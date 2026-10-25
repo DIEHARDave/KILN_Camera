@@ -3,6 +3,17 @@
 A [Kiln OS](https://github.com/djvalic/kiln-os) plugin for the Flashforge
 AD5X that adds zMod's camera macros and camera hotplug:
 
+> **Kiln OS v0.0.25 and newer: may not work properly.** This plugin
+> needs a root boot hook. Kiln OS has no proper one, so `install.sh`
+> adds a line to `/data/ad5x/camera.conf`, which Kiln's camera service
+> used to run as a shell script at boot. Since v0.0.25 Kiln reads that
+> file as settings only, so the hook no longer runs at boot. Saved
+> camera settings aren't applied, and hotplug and `CAMERA_RESTART` do
+> nothing (the macros still save their settings). Workaround until Kiln
+> offers a boot hook: after each reboot, run `sh
+> /data/ad5x/camera-hook.sh` as root. A proper hook was requested in
+> [djvalic/kiln-os#13](https://github.com/djvalic/kiln-os/issues/13).
+
 ```
 CAMERA_ON                               on, with the last settings
 CAMERA_ON WIDTH=1920 HEIGHT=1080 FPS=15 settings are kept across reboots
