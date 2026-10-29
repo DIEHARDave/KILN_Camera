@@ -99,13 +99,18 @@ Settings written in `camera.conf` by hand (`RESOLUTION_2=`, ...) still
 work; keep them above the `# KILN_Camera settings` block. A setting saved
 by a macro wins over the same one written by hand.
 
-## A second camera slot that says "error"
+## Extra cameras listed (`camera1`, `camera2`)
 
-Kiln's default `moonraker.conf` lists two cameras, `camera1`
-(`/webcam/`) and `camera2` (`/webcam2/`). With one camera, Fluidd shows
-`camera2` as an error. To hide it, add `enabled: False` under
-`[webcam camera2]` in `moonraker.conf` and restart Moonraker. Set it back
-to `True` when you plug in a second camera.
+Kiln's camera service now adds each camera to Moonraker by itself at
+boot: the first as `Chamber/Bed`, the next ones as `Camera 2`, ... This
+plugin doesn't add or change any webcam entries.
+
+Older Kiln versions instead put `[webcam camera1]` (`/webcam/`) and
+`[webcam camera2]` (`/webcam2/`) in `moonraker.conf`. Kiln only writes
+that file when it's missing, so after an update those sections stay and
+Fluidd lists the same camera twice, plus `camera2` as an error. Delete
+both sections from `/home/klipper/printer_data/config/moonraker.conf` and
+restart Moonraker.
 
 ## Uninstall
 
